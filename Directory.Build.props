@@ -1,0 +1,23 @@
+
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Product>Parus Data Access Components</Product>
+    <Authors>Alexander Bocharov</Authors>
+    <Copyright>© Parusnik-Belgorod. All rights reserved.</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageLicenseType>MIT</PackageLicenseType>
+    <MaintainerEmail>alex.bocharov@outlook.com</MaintainerEmail>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+    <PackageProjectUrl>https://github.com/Parusnik/parus-data-access</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Parusnik/parus-data-access/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>aspnetcore;data;dataaccess</PackageTags>
+  </PropertyGroup>
+
+  <Import Project="eng\Versions.props" />
+
+</Project>
