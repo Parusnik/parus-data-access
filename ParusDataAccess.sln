@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parus.Data.Abstractions", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parus.Data.Core", "src\Parus.Data.Core\Parus.Data.Core.csproj", "{FBF9E74C-6501-4160-9D82-6B7B070BEC06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parus.Data.Oracle", "src\Parus.Data.Oracle\Parus.Data.Oracle.csproj", "{C81DB44D-05A8-403F-B33A-70778EEFEDB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parus.Data.Oracle", "src\Parus.Data.Oracle\Parus.Data.Oracle.csproj", "{C81DB44D-05A8-403F-B33A-70778EEFEDB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parus.Data.PostgreSql", "src\Parus.Data.PostgreSql\Parus.Data.PostgreSql.csproj", "{AF6B2AEB-9347-42FA-9F3D-7EDEF886FBF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parus.Data.PostgreSql", "src\Parus.Data.PostgreSql\Parus.Data.PostgreSql.csproj", "{AF6B2AEB-9347-42FA-9F3D-7EDEF886FBF5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{098B72F3-07AC-4723-ABF4-CBD4E4F4BD32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "samples\ConsoleApp\ConsoleApp.csproj", "{306696E9-1528-4E69-886F-F7026DE09478}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 		{AF6B2AEB-9347-42FA-9F3D-7EDEF886FBF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF6B2AEB-9347-42FA-9F3D-7EDEF886FBF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF6B2AEB-9347-42FA-9F3D-7EDEF886FBF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{306696E9-1528-4E69-886F-F7026DE09478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{306696E9-1528-4E69-886F-F7026DE09478}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{306696E9-1528-4E69-886F-F7026DE09478}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{306696E9-1528-4E69-886F-F7026DE09478}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,7 @@ Global
 		{FBF9E74C-6501-4160-9D82-6B7B070BEC06} = {44013CEA-B025-4A00-A841-B32B0B06AFA8}
 		{C81DB44D-05A8-403F-B33A-70778EEFEDB7} = {44013CEA-B025-4A00-A841-B32B0B06AFA8}
 		{AF6B2AEB-9347-42FA-9F3D-7EDEF886FBF5} = {44013CEA-B025-4A00-A841-B32B0B06AFA8}
+		{306696E9-1528-4E69-886F-F7026DE09478} = {098B72F3-07AC-4723-ABF4-CBD4E4F4BD32}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A26D0F55-E41D-42C2-B5C0-03BDA968775D}
