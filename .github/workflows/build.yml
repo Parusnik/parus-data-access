@@ -2,15 +2,25 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+    - master
   pull_request:
-    branches: [ master ]
+    branches: 
+    - master
+
+env:
+  # Stop wasting time caching packages
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending usage data to Microsoft
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: ${{ matrix.os }}
+    startegy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest  ]
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -23,3 +33,12 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+    - name: Pack
+      if: matrix.os == 'ubuntu-latest'
+      run: dotnet pack --configuration Release --no-restore --output artifacts --include-symbols --include-source --verbosity normal
+    - name: Upload Artifact
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v2
+      with:
+        name: nupkg
+        path: artifacts/*.nupkg
