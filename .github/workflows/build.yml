@@ -53,3 +53,4 @@ jobs:
         run: |
           Get-ChildItem ./nupkg -Filter *.nupkg |
           ForEach-Object { dotnet nuget push $_ --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols true }
+        shell: pwsh
