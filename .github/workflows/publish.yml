@@ -29,4 +29,4 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration Release --no-restore --output artifacts --include-symbols --include-source --verbosity normal
     - name: Push to NuGet Feed
-      run: dotnet nuget push artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
