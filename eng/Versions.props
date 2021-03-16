@@ -5,7 +5,7 @@
     <PatchVersion>1</PatchVersion>
     <PreReleaseVersionIteration>1</PreReleaseVersionIteration>
     <PreReleaseVersionLabel></PreReleaseVersionLabel>
-    <PreReleaseBrandingLabel>/PreReleaseBrandingLabel>
+    <PreReleaseBrandingLabel></PreReleaseBrandingLabel>
   </PropertyGroup>
 
   <PropertyGroup>
