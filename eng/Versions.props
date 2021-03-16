@@ -2,10 +2,10 @@
   <PropertyGroup>
     <MajorVersion>1</MajorVersion>
     <MinorVersion>0</MinorVersion>
-    <PatchVersion>0</PatchVersion>
+    <PatchVersion>1</PatchVersion>
     <PreReleaseVersionIteration>1</PreReleaseVersionIteration>
     <PreReleaseVersionLabel></PreReleaseVersionLabel>
-    <PreReleaseBrandingLabel>Preview $(PreReleaseVersionIteration)</PreReleaseBrandingLabel>
+    <PreReleaseBrandingLabel>/PreReleaseBrandingLabel>
   </PropertyGroup>
 
   <PropertyGroup>
