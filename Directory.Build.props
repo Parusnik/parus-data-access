@@ -28,7 +28,7 @@
     <Authors>Alexander Bocharov</Authors>
     <Copyright>© Parusnik. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <PackageLicenseType>MIT</PackageLicenseType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <MaintainerEmail>alex.bocharov@outlook.com</MaintainerEmail>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
