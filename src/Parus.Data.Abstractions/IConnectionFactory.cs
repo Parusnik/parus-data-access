@@ -5,7 +5,7 @@ namespace Parus.Data.Abstractions
 {
     public interface IConnectionFactory
     {
-        IDbConnection CreateConnection();
+        IDbConnection CreateConnection()
         Type DbConnectionType { get; }
     }
 }
