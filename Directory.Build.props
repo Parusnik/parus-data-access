@@ -33,7 +33,6 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
     <PackageProjectUrl>https://github.com/Parusnik/parus-data-access</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Parusnik/parus-data-access/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>aspnetcore;data;dataaccess</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/Parusnik/parus-data-access</RepositoryUrl>
