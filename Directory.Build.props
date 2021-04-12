@@ -1,13 +1,32 @@
-
 <Project>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.DotNet.Arcade.Sdk" />
+
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>preview</LangVersion>
+    <AnalysisLevel>preview</AnalysisLevel>
+    <NoWarn>$(NoWarn);CS1591;NU5118;NU5128</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EnableXlfLocalization>false</EnableXlfLocalization>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <StrongNameKeyId>Parusnik</StrongNameKeyId>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)eng\key.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <PublicSign>false</PublicSign>
+    <PublicKey>00240000048000009400000006020000002400005253413100040000010001008982896b6c243de58b5901e4d9a9693f97c447e7b61cabb7abd21b853a5448ae9abfb7b56404f0d888652043c4268cd4c3328c71bca96ed3b17215ed0aed0ee817182cabcab9df9c2595d3c485e6a21046cf52d98ca81f7a3ee4f579eac93d1959983d2b5549542f8733bde1b66d768f4968e173e18aa109d19c433ca3e0a9c4</PublicKey>
+    <PublicKeyToken>b9283a41aea435f8</PublicKeyToken>
   </PropertyGroup>
 
   <PropertyGroup>
     <Product>Parus Data Access Components</Product>
     <Authors>Alexander Bocharov</Authors>
-    <Copyright>© Parusnik-Belgorod. All rights reserved.</Copyright>
+    <Copyright>© Parusnik. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseType>MIT</PackageLicenseType>
     <MaintainerEmail>alex.bocharov@outlook.com</MaintainerEmail>
@@ -16,8 +35,39 @@
     <PackageProjectUrl>https://github.com/Parusnik/parus-data-access</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Parusnik/parus-data-access/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>aspnetcore;data;dataaccess</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/Parusnik/parus-data-access</RepositoryUrl>
   </PropertyGroup>
 
-  <Import Project="eng\Versions.props" />
+  <PropertyGroup>
+    <RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepoRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
+    <WarnOnPackingNonPackableProject>false</WarnOnPackingNonPackableProject>
+  </PropertyGroup>
+
+  <!--
+    These are set per-project so versioning is applied correctly, but are not set globally otherwise
+    the Arcade SDK will attempt to publish artifacts such as symbols to Microsoft's servers.
+  -->
+  <PropertyGroup Condition=" '$(GITHUB_ACTIONS)' == 'true' And '$(GITHUB_REF.StartsWith(`refs/pull/`))' == 'false' ">
+    <OfficialBuild>true</OfficialBuild>
+    <OfficialBuildId>$(_ComputedOfficialBuildId)</OfficialBuildId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(RepoRelativeProjectDir.Contains('src')) ">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IsPackable>true</IsPackable>
+    <IsShipping>true</IsShipping>
+    <Serviceable>false</Serviceable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageDownload Include="Microsoft.NETCore.App.Ref" Version="[3.1.0]" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectCapability Include="DynamicDependentFile" />
+    <ProjectCapability Include="DynamicFileNesting" />
+  </ItemGroup>
 
 </Project>

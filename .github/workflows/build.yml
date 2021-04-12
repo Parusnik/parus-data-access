@@ -24,33 +24,52 @@ jobs:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
+    - name: Set Build ID
+      if: ${{ startsWith(github.ref, 'refs/pull/') == false }}
+      shell: pwsh
+      run: |
+        $Now = (Get-Date).ToUniversalTime()
+        $Hours = $Now.Hour * 4
+        $QuarterHours = [Math]::Floor($Now.Minute / 15.0)
+        $Revision = $Hours + $QuarterHours + 1
+        $BuildId = $Now.ToString("yyyyMMdd") + "." + $Revision
+        Write-Output "_ComputedOfficialBuildId=${BuildId}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+    - name: Build, test and pack
+      if: ${{ runner.os == 'Windows' }}
+      run: eng\common\CIBuild.cmd -configuration Release -prepareMachine -integrationTest
+      env:
+        DOTNET_MULTILEVEL_LOOKUP: 0
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+        NUGET_XMLDOC_MODE: skip
+    - name: Build, test and pack
+      if: ${{ runner.os != 'Windows' }}
+      shell: pwsh
+      run: ./eng/common/cibuild.sh -configuration Release -prepareMachine -integrationTest
+      env:
+        DOTNET_MULTILEVEL_LOOKUP: 0
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+        NUGET_XMLDOC_MODE: skip
+
+    - name: Publish logs
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v1
       with:
-        dotnet-version: 5.0.201
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
-    - name: Pack
-      run: dotnet pack --configuration Release --no-restore --output artifacts --include-symbols --include-source --verbosity normal
-    - name: Upload Artifacts
-      if: matrix.os == 'ubuntu-latest'
-      uses: actions/upload-artifact@v2
+        name: logs-${{ matrix.os_name }}
+        path: ./artifacts/log/Release
+
+    - name: Publish NuGet packages
+      uses: actions/upload-artifact@v1
       with:
-        name: nupkg
-        path: artifacts/*.nupkg
-  
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v1
-        with:
-          name: nupkg
-      - name: Push to NuGet Feed
-        run: |
-          Get-ChildItem ./nupkg -Filter *.nupkg |
-          ForEach-Object { dotnet nuget push $_ --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols true }
-        shell: pwsh
+        name: packages-${{ matrix.os_name }}
+        path: ./artifacts/packages/Release/Shipping
+
+    - name: Publish test results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v1
+      with:
+        name: testresults-${{ matrix.os_name }}
+        path: ./artifacts/TestResults/Release
+
+    - name: Push NuGet packages to NuGet.org
+      if: ${{ github.repository_owner == 'parusnik' && startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows' }}
+      run: dotnet nuget push "artifacts\packages\Release\Shipping\*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate --source https://api.nuget.org/v3/index.json
