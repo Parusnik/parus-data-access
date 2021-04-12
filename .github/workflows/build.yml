@@ -57,11 +57,18 @@ jobs:
         name: logs-${{ matrix.os_name }}
         path: ./artifacts/log/Release
 
-    - name: Publish NuGet packages
-      uses: actions/upload-artifact@v1
-      with:
-        name: packages-${{ matrix.os_name }}
-        path: ./artifacts/packages/Release/Shipping
+    # - name: Publish NuGet packages
+    #   uses: actions/upload-artifact@v1
+    #   with:
+    #     name: packages-${{ matrix.os_name }}
+    #     path: ./artifacts/packages/Release/Shipping
+
+    # - name: Publish test results
+    #   if: ${{ always() }}
+    #   uses: actions/upload-artifact@v1
+    #   with:
+    #     name: testresults-${{ matrix.os_name }}
+    #     path: ./artifacts/TestResults/Release
 
     - name: Push NuGet packages to NuGet.org
       if: ${{ github.repository_owner == 'parusnik' && startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows' }}
